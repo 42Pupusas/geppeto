@@ -17,6 +17,10 @@ path = "src/chat_bot.rs"
 name = "token_dispenser"
 path = "src/token_dispenser.rs"
 
+[[bin]]
+name = "heartbeat"
+path = "src/heartbeat.rs"
+
 [dependencies]
 tokio = { version = "1.28.0", features = ["full"] }
 tokio-tungstenite = {version = "0.18.0", features = ["native-tls"]}

@@ -19,7 +19,7 @@ async fn main() {
 
     // Subscribe to token request events
     let prompt_filters = json!({
-        "kinds": [29777],
+        "kinds": [29777, 29999],
     });
     write
         .send(NostrSubscription::new(prompt_filters))
@@ -81,6 +81,10 @@ async fn main() {
                             new_write.close().await.unwrap();
                         });
                     }
+                }
+
+                29999 => {
+                    println!("Blup");
                 }
                 _ => {}
             }

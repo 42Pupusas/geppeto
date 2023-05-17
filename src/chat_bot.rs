@@ -20,7 +20,7 @@ async fn main() {
 
     // Subscribe to prompt events
     let prompt_filters = json!({
-        "kinds": [29000],
+        "kinds": [29000, 29999],
     });
   
     // Send the subscription event
@@ -29,7 +29,8 @@ async fn main() {
         .await
         .expect("Failed to send JSON");
 
-    loop {
+
+      loop {
         // Parse messages from relay
         let msg = read.next().await.unwrap().unwrap().to_string();
 
@@ -98,6 +99,10 @@ async fn main() {
                             });
                         }
                     }
+                }
+
+                29999 => {
+                    println!("Blop");
                 }
 
                 _ => {}

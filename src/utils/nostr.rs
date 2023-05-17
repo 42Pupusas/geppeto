@@ -7,7 +7,7 @@ use sha2::{Digest, Sha256};
 use std::time::{SystemTime, UNIX_EPOCH};
 use tokio_tungstenite::{connect_async, tungstenite::protocol::Message as WsMessage};
 
-use crate::secrets::{PRIV_KEY, PUB_KEY};
+use crate::secrets::{PRIV_KEY, PUB_KEY, RELAY_URL};
 
 #[derive(Serialize, Deserialize)]
 pub struct NostrSubscription {
@@ -65,7 +65,7 @@ impl Event {
         hasher.update(serde_json::to_string(&json_str).unwrap());
         let hash_result = hasher.finalize();
         let event_id = hex::encode(hash_result);
-        println!("event_id: {:?}", event_id);
+        // println!("event_id: {:?}", event_id);
         let secp = Secp256k1::new();
         let id_message = Message::from_slice(&hash_result).unwrap();
         let signature = secp.sign_schnorr_no_aux_rand(&id_message, &keypair);
@@ -211,7 +211,7 @@ pub fn create_prompt_event(content: String) -> SignedEvent {
 
 pub async fn check_for_token(holder: String) -> Result<String, bool> {
     // Parse URL address into URL struct
-    let url = url::Url::parse("ws://192.168.1.5:6969").unwrap();
+    let url = url::Url::parse(RELAY_URL).unwrap();
 
     // Connect to the server
     let (ws_stream, _) = connect_async(url).await.expect("Failed to connect");
@@ -261,27 +261,28 @@ pub async fn check_for_token(holder: String) -> Result<String, bool> {
     }
 }
 
-pub fn test_event(content: String, kind: u32) -> SignedEvent {
-    let private_key = new_keys();
-    let public_key = get_public_key(&private_key);
-    let keypair = KeyPair::from_secret_key(&Secp256k1::new(), &private_key);
+pub fn heartbeat_event() -> SignedEvent {
+    
+    // Get the server bot keypair
+    let keypair = KeyPair::from_seckey_str(&Secp256k1::new(), PRIV_KEY).unwrap();
+    let public_key = get_public_key(&keypair.secret_key());
+
     // Example values for the event fields
     let created_at = get_unix_timestamp();
-    let kind = kind;
+    let kind = 29999;
     let tags: Vec<Vec<String>> = vec![];
-    let content = content;
+    let content = "".to_string();
 
     let my_event = Event {
         pubkey: public_key.to_string()[2..].to_string(),
         created_at,
         kind,
         tags,
-        content: content.to_string(),
+        content,
     };
     let signed_event = my_event.sign_event(keypair);
     signed_event
-    // let event_string = serde_json::to_string(&signed_event).unwrap();
-    // event_string
+  
 }
 
 pub fn create_invoice_event(holder: String, invoice: String) -> SignedEvent {
