@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html class="min-h-screen" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@1.9.6"
+        integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
+
+    <!-- tailwindcss -->
+    <link href="../styles/main.css" rel="stylesheet" />
+
+    <!-- Favicon  -->
+    <title>Guild Navigator</title>
+
+    <!-- Allow other template to extend head -->
+    {% block head %}{% endblock %}
+</head>
+
+<body class="h-screen w-full md:flex-row bg-gray-900 text-white">
+    {% include "home.html" %}
+</body>
+
+</html>

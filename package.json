@@ -1,0 +1,15 @@
+{
+  "name": "geppetto",
+  "version": "1.0.0",
+  "scripts": {
+    "tailwind": "tailwindcss -i ./public/styles/tailwind.css -o ./public/styles/main.css"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "tailwindcss": "^3.3.3"
+  },
+  "dependencies": {
+    "@tailwindcss/forms": "^0.5.6",
+    "htmx.org": "^1.9.6"
+  }
+}

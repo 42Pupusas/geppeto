@@ -1,0 +1,37 @@
+[package]
+name = "g-navigator"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "navigator"
+path = "src/lib/lib.rs"
+
+[[bin]]
+name = "navigator"
+path = "src/router.rs"
+
+[dependencies]
+nostro2 = "0.1.6"
+anyhow = "1.0.75"
+askama = { version = "0.12.0", features = ["markdown"] }
+axum = { version = "0.6.20", features = ["macros"] }
+chrono = "0.4.29"
+futures = "0.3.28"
+serde = "1.0.188"
+serde_json = "1.0.105"
+tokio = { version = "1.32.0", features = ["full"] }
+tower = "0.4.13"
+tower-http = { version = "0.4.4", features = ["fs"] }
+tracing = {version = "0.1.37", features = ["log"] }
+tracing-subscriber = {version = "0.3.17", features = ["env-filter"] }
+tungstenite = "0.20.0"
+reqwest = { version = "0.11", features = ["json"] }
+hex = "0.4.3"
+tokio-tungstenite = {version = "0.18.0", features = ["native-tls"]}
+rand = "0.8.5"
+httparse = "1.8.0"
+futures-util = { version = "0.3.28", default-features = false, features = ["sink", "std"] }
+base64 = "0.21.4"
+native-tls = "0.2.11"
+
