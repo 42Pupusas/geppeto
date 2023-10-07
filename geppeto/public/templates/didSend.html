@@ -1,0 +1,12 @@
+{% if sent %}
+    <div id="didSend" class="fixed top-8 right-8 bg-green-700 opacity-100 p-4 transition-all">
+        <h2 class="text-white">Sent</h2>
+        <p class="text-white">Your note was sent.</p>
+    </div>
+{% else %}
+    <div id="didSend" class="fixed top-8 right-8 bg-red-700 opacity-100 p-4 transition-all">
+        <h2 class="text-white">Failed</h2>
+        <p class="text-white">Your note failed to send.</p>
+    </div>
+{% endif %}
+
