@@ -3,7 +3,7 @@ use axum::{
     debug_handler,
     http::StatusCode,
     response::{Html, IntoResponse, Response},
-    Form, Json,
+    Json,
 };
 use chrono::NaiveDateTime;
 use nostro2::{
@@ -39,10 +39,17 @@ pub async fn about() -> impl IntoResponse {
 }
 
 #[derive(Template)]
+#[template(path = "keys.html")]
+struct KeysTemplate;
+
+pub async fn keys() -> impl IntoResponse {
+    HtmlTemplate(KeysTemplate {})
+}
+
+#[derive(Template)]
 #[template(path = "navigator.html")]
 struct NavigatorTemplate {
     pub pubkey: String,
-    pub checked: bool,
 }
 
 pub async fn navigator(user_note: Json<SignedNote>) -> impl IntoResponse {
@@ -51,13 +58,11 @@ pub async fn navigator(user_note: Json<SignedNote>) -> impl IntoResponse {
         info!("User signature verified");
         HtmlTemplate(NavigatorTemplate {
             pubkey: user_note.get_pubkey().to_string(),
-            checked: true,
         })
     } else {
         info!("User signature failed to verify");
         HtmlTemplate(NavigatorTemplate {
             pubkey: "Failed to verify signature".to_string(),
-            checked: false,
         })
     }
 }

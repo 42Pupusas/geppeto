@@ -48,6 +48,17 @@ async function getSignedNote(event) {
     return event;
 }
 
+function createNewPrivateKey() {
+
+    try {
+        const keys = document.getElementById('keys');
+        var key = bitcoinjs.ECPair.makeRandom().privateKey.toString('hex');
+        keys.innerText = key;
+    } catch (error) {
+        console.error("Failed to create private key:", error);
+    }
+}
+
 async function checkInToNostr() {
     try {
         const checkIn = document.getElementById("checkInRequest");

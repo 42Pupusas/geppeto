@@ -61,8 +61,11 @@
     <div class="">
         <p class="mt-4 text-sm text-gray-500 sm:mt-0">
             Don't Have a Keypair Yet?
-            <a hx-get="/newKeypair" class="text-gray-700 underline cursor-pointer">Create One</a>.
         </p>
+        <p hx-get="/newKeys" hx-target="#newKey" hx-swap="innerHTML"
+            class="w-max text-gray-700 underline cursor-pointer hover:bg-blue-950">Create One!</p>
+    </div>
+    <div id="newKey">
     </div>
     <input hx-ext="json-enc" hx-trigger="change" hx-post="/checkIn" hx-target="#contentView" class="hidden"
         name="check_in" id="checkInRequest" />
